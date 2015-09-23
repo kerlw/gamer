@@ -55,43 +55,77 @@ let gameServer = gamer(httpServer, options);
 ```
 ***
 `httpServer` - the following values are supported:
-+ **null** or **undefined**. Gamer will create his own httpServer.
-+ **Plain** Node HTTP server:
+#### Null or Undefined
+ Gamer will create his own httpServer.
+#### Plain Node HTTP server
 ``` js
 let httpServer = require('http').createServer();
 ```
-+ **KoaJS** httpServer:
+#### KoaJS httpServer:
 ``` js
 let app = require('koa')();
 let httpServer = require('http').createServer(app.callback());
 ```
-+ **Express** httpServer:
+#### Express httpServer:
 ``` js
 let app = require('express')();
 let httpServer = require('http').createServer(app);
 ```
 ***
+
 `options` - the following options are supported:
-+ **playersNumber** [int] Set needed number of players play the game.
-+ **countdown** [int] Number of seconds before game starts after all the players are ready.
-+ **inititalAction**
+#### playersNumber : Integer
+Set needed number of players play the game.
+#### countdown : Integer
+Number of seconds before game starts after all the players are ready.
+#### inititalAction
 ``` js
 // This method will be fired right after
 // all the players are ready and
 // before countdown started.
 inititalAction: function(game, callback){
-    // Current game object.
-    // You can extend it with .set() method.
-    game.set("logic", new Logic());
-    // Get client list of current game.
-    // In this meaning client <> player.
-    var clients = game.getClients();
-    // For each client you can also set custom values.
-    clients[0].set("tiles",Logic.generateRandomTiles());
-    clients[1].set("tiles",Logic.generateRandomTiles());
+  // Current game object.
+  // You can extend it with .set() method.
+  game.set("logic", new Logic());
+  // Get client list of current game.
+  // In this meaning client <> player.
+  var clients = game.getClients();
+  // For each client you can also set custom values.
+  _.each(clients, client =>      
+    client.set("someData",Logic.someClientData())
+  );
+  // Call it when all preparations are done
+  callback();
+}
+```
+#### turnAction
+``` js
+// This method will be fired every tile
+// when user made a turn
+turnAction: function(client, turnData, callback)
+    // If u need - u can get Game object
+    let game = client.getGame();
+    // Now we can access to our logic object
+    // which was set at inititalAction
+    game.get("logic")
+      .turnAction(turnData, client.get("someData"));
     // Call it when all preparations are done
     callback();
-},
+}
+```
+
+#### turnAction
+``` js
+// This method will be fired every time
+// after turnAction finished
+syncAction: function(client, callback)
+    let result = {someData:{}, winner:null};
+    // You can get list of opponents
+    let opponents = game.getOpponents(client);
+    result.someData[client.socket.id]    = client.get("someData");
+    result.someData[opponent.socket.id]  = opponent.get("someData");
+    callback(result);
+}
 ```
 
 ## Installation
