@@ -1,0 +1,9 @@
+logs
+pids
+*.log
+*.pid
+*.seed
+lib-cov
+coverage
+node_modules
+test-results.xml
