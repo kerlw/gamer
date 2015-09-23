@@ -54,22 +54,40 @@ let gamer = require('gamer');
 let gameServer = gamer(httpServer, options);
 ```
 `httpServer` - the following values are supported:
-+ **null** or **undefined**. Gamer will create own server.
-+ **KoaJS** httpServer.
++ **null** or **undefined**. Gamer will create his own httpServer.
++ **Plain** Node HTTP server:
+``` js
+let httpServer = require('http').createServer();
+```
++ **KoaJS** httpServer:
 ``` js
 let app = require('koa')();
 let httpServer = require('http').createServer(app.callback());
 ```
-+ **Express** httpServer
++ **Express** httpServer:
 ``` js
 let app = require('express')();
 let httpServer = require('http').createServer(app);
 ```
 
-**options** - *mandatory* parameter. Contains all the rules about business logic.
-+ **playersNumber** : Integer. Set needed number of players to start a game.
-+ **countdown** : Integer. Seconds
-
+`options` - the following options are supported:
++ **playersNumber** [int] Set needed number of players play the game.
++ **countdown** [int] Number of seconds before game starts after all the players are ready.
++ **inititalAction**
+``` js
+// This method will be fired right after all the players are ready and before countdown started
+inititalAction: function(game, callback){
+    // Current game object. You can extend it with .set() method.
+    game.set("logic", new Logic());
+    // Get client list of current game. In this meaning client <> player.
+    var clients = game.getClients();
+    // For each client you can also set custom values.
+    clients[0].set("tiles",Logic.generateRandomTiles());
+    clients[1].set("tiles",Logic.generateRandomTiles());
+    // Call it when all preparations are done
+    callback();
+},
+```
 ## Installation
 `npm install gamer --save`
 ## Examples
