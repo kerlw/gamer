@@ -1,6 +1,6 @@
 {
   "name": "gamer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Turn-based game server",
   "main": "index.js",
   "directories": {
