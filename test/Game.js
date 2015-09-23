@@ -20,14 +20,14 @@ let Client = require('../lib/Client.js');
 let Server = require('../lib/Server.js');
 let Room = require('../lib/Room.js');
 
-let turny;
+let gamer;
 
 describe('Game', function() {
   let client1, client2, roomId;
 
   beforeEach(function(done) {
     let server = http.createServer().listen(PORT);
-    turny = new Server(server, {inititalAction: function(game, cb) {cb();}});
+    gamer = new Server(server, {inititalAction: function(game, cb) {cb();}});
     client1 = io.connect(socketURL, options);
     client2 = io.connect(socketURL, options);
 
@@ -83,6 +83,6 @@ describe('Game', function() {
   });
 
   afterEach(function() {
-    turny.close();
+    gamer.close();
   });
 });

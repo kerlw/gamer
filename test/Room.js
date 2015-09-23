@@ -26,10 +26,10 @@ let Room = require('../lib/Room.js');
 
 describe('Room', function() {
   //let client1, client2;
-  let turny;
+  let gamer;
   beforeEach(function() {
     let server = http.createServer().listen(PORT);
-    turny = new Server(server, {});
+    gamer = new Server(server, {});
   });
 
   it('should create public room', function(done) {
@@ -144,6 +144,6 @@ describe('Room', function() {
   });
 
   afterEach(function() {
-    turny.close();
+    gamer.close();
   });
 });

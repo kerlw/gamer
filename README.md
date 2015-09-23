@@ -1,8 +1,8 @@
-[![Circle CI](https://img.shields.io/circleci/project/asynxis/turny/master.svg?style=flat-square)](https://circleci.com/gh/asynxis/turny/tree/master)
-[![Coverage Status](https://img.shields.io/coveralls/asynxis/turny.svg?style=flat-square)](https://coveralls.io/github/asynxis/turny?branch=master)
+[![Circle CI](https://img.shields.io/circleci/project/asynxis/gamer/master.svg?style=flat-square)](https://circleci.com/gh/asynxis/gamer/tree/master)
+[![Coverage Status](https://img.shields.io/coveralls/asynxis/gamer.svg?style=flat-square)](https://coveralls.io/github/asynxis/gamer?branch=master)
 
-# TurnyJS
-TurnyJS - tiny NodeJS game server based on [Socket.IO](https://github.com/socketio/socket.io/).
+# Gamer.JS
+GamerJS - tiny NodeJS game server based on [Socket.IO](https://github.com/socketio/socket.io/).
 ## Features
 + Game with 1 to N players or AI.
 + Authentication.
@@ -45,10 +45,10 @@ TurnyJS - tiny NodeJS game server based on [Socket.IO](https://github.com/socket
 16. After it, players still connected and game state on the server is identically to step 5. If rematch is take the place - client need to do step 6 and replay game again.
 
 ## Installation
-`npm install turny --save`
+`npm install gamer --save`
 ## Examples
-+ [Tic-Tak-Toe](https://github.com/asynxis/turny-examples/tree/master/barley-break), using React for Client.
-+ [Barley-Breck](https://github.com/asynxis/turny-examples/tree/master/tic-tac-toe), using React for Client.
++ [Tic-Tak-Toe](https://github.com/asynxis/gamer-examples/tree/master/barley-break), using React for Client.
++ [Barley-Breck](https://github.com/asynxis/gamer-examples/tree/master/tic-tac-toe), using React for Client.
 
 ## API
 
@@ -56,4 +56,4 @@ here will be described API...
 
 ## License
 
-[MIT](https://github.com/asynxis/turny/blob/master/LICENSE)
+[MIT](https://github.com/asynxis/gamer/blob/master/LICENSE)
