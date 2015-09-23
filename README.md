@@ -11,7 +11,7 @@ GamerJS - tiny, but powerful and easy customizable game server based on [Socket.
 + **Turn-base behavior**, when players do turns one-by-one, like Tic-Tak-Toe, Age of Empires, Civilization ,etc.
 + **Realtime behavior**, when each player can do independent turns. Like Dota2, LoL, etc.
 
-## Get started
+## How to use
 
 ## Workflow
 
@@ -48,13 +48,12 @@ GamerJS - tiny, but powerful and easy customizable game server based on [Socket.
 
 ## API
 
-#### Create new server
+### Create new server
 ``` js
 let gamer = require('gamer');
 let gameServer = gamer(httpServer, options);
 ```
-***
-`httpServer` - the following values are supported:
+-> `httpServer` - the following values are supported:
 #### Null or Undefined
  Gamer will create his own httpServer.
 #### Plain Node HTTP server
@@ -71,9 +70,8 @@ let httpServer = require('http').createServer(app.callback());
 let app = require('express')();
 let httpServer = require('http').createServer(app);
 ```
-***
 
-`options` - the following options are supported:
+-> `options` - the following options are supported:
 #### playersNumber : Integer
 Set needed number of players play the game.
 #### countdown : Integer
@@ -109,25 +107,45 @@ turnAction: function(client, turnData, callback)
     // which was set at inititalAction
     game.get("logic")
       .turnAction(turnData, client.get("someData"));
-    // Call it when all preparations are done
     callback();
 }
 ```
 
-#### turnAction
+#### syncAction
 ``` js
 // This method will be fired every time
 // after turnAction finished
+// Object which passed to callback will be directly
+// delivered to client with 'game:sync' event
 syncAction: function(client, callback)
-    let result = {someData:{}, winner:null};
+    let result = {}
     // You can get list of opponents
     let opponents = game.getOpponents(client);
-    result.someData[client.socket.id]    = client.get("someData");
-    result.someData[opponent.socket.id]  = opponent.get("someData");
+    // Please add what you want send to each user
+    // for this add key:value to result object
+    // where key is client.id
+    result[client.id]    = client.get("someData");
+    _.each(opponents, opponent =>
+        result[opponent.id]  = opponent.get("someData");
+    )
     callback(result);
 }
 ```
 
+#### isOverAction
+``` js
+// This method will be fired every time
+// after syncAction finished
+// There we check if game is over now
+isOverAction: function(clients, callback)
+    let winner = game.get("logic")
+      .getWinner(clients)
+    // If someone won - return client object of the player.
+    // If nobody won - return null or O
+    // IMPORTANT. If draw - set winner to '-1'.
+    callback(winner);
+}
+```
 ## Installation
 `npm install gamer --save`
 ## Examples
