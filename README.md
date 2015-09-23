@@ -1,8 +1,8 @@
 [![Circle CI](https://img.shields.io/circleci/project/asynxis/gamer/master.svg?style=flat-square)](https://circleci.com/gh/asynxis/gamer/tree/master)
 [![Coverage Status](https://img.shields.io/coveralls/asynxis/gamer.svg?style=flat-square)](https://coveralls.io/github/asynxis/gamer?branch=master)
 
-# Gamer.JS
-GamerJS - tiny NodeJS game server based on [Socket.IO](https://github.com/socketio/socket.io/).
+# GamerJS
+GamerJS - tiny, but powerful and easy customizable game server based on [Socket.IO](https://github.com/socketio/socket.io/).
 ## Features
 + Game with 1 to N players or AI.
 + Authentication.
@@ -10,6 +10,8 @@ GamerJS - tiny NodeJS game server based on [Socket.IO](https://github.com/socket
 + Public and private game-rooms.
 + **Turn-base behavior**, when players do turns one-by-one, like Tic-Tak-Toe, Age of Empires, Civilization ,etc.
 + **Realtime behavior**, when each player can do independent turns. Like Dota2, LoL, etc.
+
+## Get started
 
 ## Workflow
 
@@ -44,15 +46,35 @@ GamerJS - tiny NodeJS game server based on [Socket.IO](https://github.com/socket
 15. When the game is over clients receive `'game:over'` message with information to show the game results, which was build in `'gameOverAction'` before.
 16. After it, players still connected and game state on the server is identically to step 5. If rematch is take the place - client need to do step 6 and replay game again.
 
+## API
+
+#### Create new server
+``` js
+let gamer = require('gamer');
+let gameServer = gamer(httpServer, options);
+```
+`httpServer` - the following values are supported:
++ **null** or **undefined**. Gamer will create own server.
++ **KoaJS** httpServer.
+``` js
+let app = require('koa')();
+let httpServer = require('http').createServer(app.callback());
+```
++ **Express** httpServer
+``` js
+let app = require('express')();
+let httpServer = require('http').createServer(app);
+```
+
+**options** - *mandatory* parameter. Contains all the rules about business logic.
++ **playersNumber** : Integer. Set needed number of players to start a game.
++ **countdown** : Integer. Seconds
+
 ## Installation
 `npm install gamer --save`
 ## Examples
 + [Tic-Tak-Toe](https://github.com/asynxis/gamer-examples/tree/master/barley-break), using React for Client.
 + [Barley-Breck](https://github.com/asynxis/gamer-examples/tree/master/tic-tac-toe), using React for Client.
-
-## API
-
-here will be described API...
 
 ## License
 
