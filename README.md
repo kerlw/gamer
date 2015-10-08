@@ -1,8 +1,10 @@
 [![Circle CI](https://img.shields.io/circleci/project/asynxis/gamer/master.svg?style=flat-square)](https://circleci.com/gh/asynxis/gamer/tree/master)
 [![Coverage Status](https://img.shields.io/coveralls/asynxis/gamer.svg?style=flat-square)](https://coveralls.io/github/asynxis/gamer?branch=master)
 
-# GamerJS
+
+# GamerJS 
 GamerJS - tiny, but powerful and easy customizable game server based on [Socket.IO](https://github.com/socketio/socket.io/).
+### !!! still in development, so can NOT be used in real projects right now !!!
 ## Features
 + Game with 1 to N players or AI.
 + Authentication.
